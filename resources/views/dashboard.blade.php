@@ -2,8 +2,7 @@
 
 
 @section('main')
-<h1 class="text-center">Dashbaord</h1>
-<p class="text-center text-bold">hello {{ Auth::user()->email }}</p>
+<h1 class="text-center mt-2">Dashbaord</h1>
 <div class="row">
 <div class="col-md-6">
 <div class="card mt-5 p-4">
@@ -34,6 +33,8 @@
 </div>
 <div class="col-md-6">
 <div class="card mt-5 p-4" id="paymentsList">
+<h4 class="text-center">Previous Payments</h4>
+@if ($user->payments->count() > 0 )
 <table class="table">
   <thead>
     <tr>
@@ -44,6 +45,7 @@
     </tr>
   </thead>
   <tbody>
+  
   @foreach ($user->payments as $payment)
    <tr>
       <th scope="row">{{$payment->id}}</th>
@@ -53,8 +55,16 @@
     </tr>   
   @endforeach
 
+
   </tbody>
 </table>
+
+  @else
+  
+<div class="alert alert-info text-center p-3" role="alert">
+  You have no payments to show!
+</div>
+    @endif
 </div>
 
 </div>
