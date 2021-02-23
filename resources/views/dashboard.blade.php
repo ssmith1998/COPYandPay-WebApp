@@ -55,7 +55,7 @@
       <th>Reference</th>
       <th>Amount</th>
       <th>Date</th>
-      <th>refunded</th>
+      <th>Refunded</th>
       <th>Refund Reference</th>
       <th></th>
     </tr>
