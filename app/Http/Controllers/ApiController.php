@@ -88,6 +88,7 @@ class ApiController extends Controller
             $paymentAmount = $data['amount'];
             $paymentTimeStamp =  new DateTime($data['timestamp']);
             $paymentReference = $data['merchantTransactionId'];
+            $paymentId = $data['id'];
 
             //save payment
             /** @var User $user */
@@ -97,12 +98,63 @@ class ApiController extends Controller
             $newPayment->amount = $paymentAmount;
             $newPayment->reference = $paymentReference;
             $newPayment->timestamp = $paymentTimeStamp;
+            $newPayment->paymentId = $paymentId;
 
             $user->payments()->save($newPayment);
 
             return view('paymentSuccess', ['code' => $resultCode, 'desc' => $resultDesc]);
         } else {
             return back();
+        }
+    }
+
+
+    public function refund(Request $request)
+    {
+
+
+
+        $paymentId = $request->get('payment');
+        /** @var Payment $foundPayment  */
+        $foundPayment = Payment::find((int)$paymentId);
+
+
+
+
+        $url = "https://test.oppwa.com/v1/payments/" . $foundPayment->paymentId . "";
+        $data = "entityId=8ac7a4ca759cd78501759dd759ad02df" .
+            "&amount=" . $foundPayment->amount . "" .
+            "&currency=GBP" .
+            "&paymentType=RF";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization:Bearer OGFjN2E0Y2E3NTljZDc4NTAxNzU5ZGQ3NThhYjAyZGR8NTNybThiSmpxWQ=='
+        ));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $responseData = curl_exec($ch);
+        if (curl_errno($ch)) {
+            return curl_error($ch);
+        }
+        curl_close($ch);
+        $data = json_decode($responseData, true);
+        $refundReference = $data['referencedId'];
+
+        // dd($data);
+
+        if ($data['result']['code'] == '700.400.200') {
+            return redirect()->route('dashboard')->with('error', 'Refund failed, this payment has already been refunded.');
+        } else {
+            $foundPayment->isRefunded = true;
+            $foundPayment->refundReference = $refundReference;
+
+            $foundPayment->save();
+
+            return redirect()->route('dashboard')->with('success', 'Refunded Payment Successfully');
         }
     }
 }
