@@ -4,22 +4,26 @@
 
 @section('main')
 <div class="loginWrapper pt-4 d-flex flex-column justify-content-center align-items-center">
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <h3 class="text-center">Login</h3>
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
+        <div class="alert alert-danger w-50 text-center">
+        
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                <span>{{ $error }}</span><br/>
             @endforeach
-        </ul>
+     
     </div>
 @endif
  <form  action="{{url('/login/user')}}" method="POST" class="w-100">
    <input type="hidden" name="_token" value="{{ csrf_token() }}">
   <div class="form-group">
     <label for="email">Email address</label>
-    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="{{ old('email') }}">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <input type="email" class="form-control" id="email"  placeholder="Enter email" name="email" value="{{ old('email') }}">
   </div>
   <div class="form-group">
     <label for="password">Password</label>

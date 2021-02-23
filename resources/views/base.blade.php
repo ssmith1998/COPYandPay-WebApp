@@ -5,29 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laravel Payment Web App</title>
+    <link href="{{ URL::asset('css/main.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<header class="w-100 bg-light py-4 shadow">
 @if (Auth::check())
-<div class="row">
-<div class="col-6">
-<h1 class="text-center">Laravel Payment Web App</h1>
-</div>
-<div class="col-6 d-flex align-items-center justify-content-center">
+<header class="w-100 bg-light py-4 shadow navbar navbar-expand-md navbar-light justify-content-between">
+ <span class="navbar-brand mb-0 h1">Laravel Payment Web App</span>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <div class=" d-flex  ">
  
     <span>{{ Auth::user()->email }}</span>
-     <a class="ml-2" href="/logout"><i class="fas fa-sign-out-alt"></i></a> 
+     <a class="ml-2" href="/logout"><span class="mr-2">Logout</span><i class="fas fa-sign-out-alt"></i></a> 
  
 </div>
-</div>
-@else
-<h1 class="text-center">Laravel Payment Web App</h1>
-@endif
-    
-   
-
+      </li>
+    </ul>
+  </div>
 </header>
+
+@else
+<header class="w-100 bg-light py-4 shadow justify-content-between">
+<h1 class="text-center">Laravel Payment Web App</h1>
+</header>
+@endif
     
     <div class="container">
     @yield('main')

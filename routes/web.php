@@ -28,5 +28,5 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard')->middle
 Route::post('/register/user/', 'RegisterController@register')->name('registerUser');
 Route::post('/login/user/', 'LoginController@Login')->name('loginUser');
 Route::get('/logout', 'LoginController@Logout')->name('logout');
-Route::post('/copyandpay/setup', 'ApiController@getDetails');
+Route::post('/copyandpay/setup', 'ApiController@getDetails')->middleware('auth');
 Route::get('/paymentSuccess/', 'ApiController@paymentSuccess')->name('paymentSuccess')->middleware('auth');

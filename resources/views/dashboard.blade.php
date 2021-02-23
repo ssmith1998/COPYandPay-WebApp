@@ -2,9 +2,10 @@
 
 
 @section('main')
-<h1 class="text-center mt-2">Dashbaord</h1>
+<div class="card p-5 mt-5">
+<h1 class="text-center mt-2">Dashboard</h1>
 <div class="row">
-<div class="col-md-6">
+<div class="col-lg-6">
 <div class="card mt-5 p-4">
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -31,10 +32,11 @@
 </form>
 </div>
 </div>
-<div class="col-md-6">
+<div class="col-lg-6">
 <div class="card mt-5 p-4" id="paymentsList">
 <h4 class="text-center">Previous Payments</h4>
 @if ($user->payments->count() > 0 )
+<div class="table-responsive-sm">
 <table class="table">
   <thead>
     <tr>
@@ -59,6 +61,8 @@
   </tbody>
 </table>
 
+</div>
+
   @else
   
 <div class="alert alert-info text-center p-3" role="alert">
@@ -67,6 +71,7 @@
     @endif
 </div>
 
+</div>
 </div>
 </div>
 
