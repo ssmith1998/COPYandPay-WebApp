@@ -1,8 +1,8 @@
 @extends('base')
 
 @section('main')
-<div class="registerWrapper pt-4 d-flex flex-column justify-content-center align-items-center">
-
+<div class="registerWrapper pt-4 w-100 h-100">
+<div class="card p-4 mt-5">
 <h3 class="text-center">Register</h3>
 @if ($errors->any())
     <div class="alert alert-danger w-50 text-center">
@@ -32,4 +32,5 @@
 <a href="/">already have an account? Login here!</a>
 </div>
 </div>
+<div/>
 @endsection

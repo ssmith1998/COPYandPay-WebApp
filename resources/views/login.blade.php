@@ -3,12 +3,13 @@
 
 
 @section('main')
-<div class="loginWrapper pt-4 d-flex flex-column justify-content-center align-items-center">
+<div class="loginWrapper pt-4 h-100 w-100">
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
+<div class="card p-4 mt-5">
 <h3 class="text-center">Login</h3>
 @if ($errors->any())
         <div class="alert alert-danger w-50 text-center">
@@ -36,6 +37,7 @@
 
 <div class="registerLink text-center pt-3">
 <a href="/register">Not signed up? Register here!</a>
+</div>
 </div>
 </div>
 @endsection
