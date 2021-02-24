@@ -12,7 +12,7 @@
 <div class="card p-4 mt-5">
 <h3 class="text-center">Login</h3>
 @if ($errors->any())
-        <div class="alert alert-danger w-50 text-center">
+        <div class="alert alert-danger w-100 text-center">
         
             @foreach ($errors->all() as $error)
                 <span>{{ $error }}</span><br/>
